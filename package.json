@@ -1,0 +1,25 @@
+{
+  "name": "rgbsenor",
+  "version": "1.0.0",
+  "description": "RGB Sensor example program",
+  "main": "rgbsensor.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pierceray/rgbsenor.git"
+  },
+  "keywords": [
+    "rgb",
+    "sensor",
+    "johnny-five"
+  ],
+  "author": "Ray Pierce",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pierceray/rgbsenor/issues"
+  },
+  "homepage": "https://github.com/pierceray/rgbsenor",
+  "devDependencies": {
+    "barcli": "0.0.11",
+    "johnny-five": "^0.8.78"
+  }
+}
