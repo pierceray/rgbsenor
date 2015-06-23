@@ -19,6 +19,10 @@
   },
   "homepage": "https://github.com/pierceray/rgbsenor",
   "devDependencies": {
+
+  },
+  "dependencies": {
+    "node-pixel": "^0.3.2",
     "barcli": "0.0.11",
     "johnny-five": "^0.8.78"
   }
