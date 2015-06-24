@@ -10,12 +10,17 @@ opts.port = process.argv[2] || "";
 var board = new five.Board(opts);
 var strip = null;
 
-var fps = 100; // how many frames per second do you want to try?
+// how many frames per second do you want to try?
+//
+// 13 is the max fps I've gotten to work with the 40 pixel NeoPixel Arduino
+// shield https://www.adafruit.com/product/1430.  Milage may vary.
+var fps = 13;
 
 board.on("ready", function() {
 
 	console.log("Board ready, lets add light");
 
+	// setup the node-pixel strip.
 	strip = new pixel.Strip({
 		data: 6,
 		length: 40,
@@ -25,34 +30,46 @@ board.on("ready", function() {
 	});
 
 	strip.on("ready", function() {
-
 		console.log("Strip ready, let's go");
-		rainbow(fps);
 
+		//staticRainbow(fps);
+		dynamicRainbow(fps);
 	});
 
-	this.repl.inject({
-		strip:strip
-	});
+	// just in case you need to check some things out.
+	// this.repl.inject({
+	// 	strip:strip
+	// });
 
-	function rainbow(delay){
+	function dynamicRainbow(delay){
+		console.log('dynamicRainbow');
+
 		var showColor;
-		console.log('rainbow');
+		var cwi = 0; // colour wheel index (current position on colour wheel)
+		var foo = setInterval(function(){
+			if (++cwi > 255) {
+				cwi = 0;
+			}
 
-		for(var j = 0; j < 256; j++) {
 			for(var i = 0; i < strip.stripLength(); i++) {
-
-				showColor = Wheel( ( i+j ) & 255 );
+				showColor = Wheel( ( cwi+i ) & 255 );
 				strip.pixel( i ).color( showColor );
-				// Illustrates the problem
-				if (strip.pixel( 0 ).color().color === 'red'){
-					console.log(showColor);
-					console.log(strip.pixel( 0 ).color());
-				}
 			}
 			strip.show();
-		}
+		}, 1000/delay);
 	}
+
+	function staticRainbow(delay){
+		console.log('staticRainbow');
+
+		var showColor;
+		for(var i = 0; i < strip.stripLength(); i++) {
+			showColor = Wheel( ( i*256 / strip.stripLength() ) & 255 );
+			strip.pixel( i ).color( showColor );
+		}
+		strip.show();
+	}
+
 	// Input a value 0 to 255 to get a color value.
 	// The colours are a transition r - g - b - back to r.
 	function Wheel( WheelPos ){
