@@ -22,8 +22,8 @@
 
   },
   "dependencies": {
-    "node-pixel": "^0.3.2",
-    "barcli": "0.0.11",
-    "johnny-five": "^0.8.78"
+    "node-pixel": "^0.9.3",
+    "barcli": "0.0.25",
+    "johnny-five": "^0.12.0"
   }
 }
